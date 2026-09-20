@@ -1,39 +1,46 @@
 # PODES
 
-Vieno puslapio svetainė aliuminio stumdomų langų sistemų verslui **PODES** (Aliuminės, Stumdomos Langų Sistemos).
+Vieno puslapio svetainė verslui **PODES. Aliuminės, stumdomos langų sistemos** (Kaunas, visa Lietuva).
+
+Visas turinys ir visos nuotraukos paimti iš PODES profilio paslaugos.lt portale:
+https://paslaugos.lt/podes-aliumines-stumdomos-langu-sistemos-rl218
 
 ## Apie projektą
 
 - Vientisas `index.html` failas be build proceso
 - Tailwind CSS CDN, FontAwesome CDN, native ES6 JavaScript
-- Obsidian Glass tema su glassmorphism panelėmis, prizminiais rėmeliais ir atspindžio animacijomis
+- Obsidian Glass tema: permatoma antraštė, kuri slenkant virsta stiklu, nuotraukomis paremtos sekcijos, begalinės juostos
 - Pritaikyta mobiliesiems, planšetėms ir kompiuteriams
+- `photos/` yra 39 galerijos nuotraukos, `photos/lg/` yra didesnės tų pačių nuotraukų versijos fonams
 
 ## Sekcijos
 
-1. Hero su nuotraukų perėjimais ir Ken Burns efektu
+1. Hero su nuotraukų perėjimais ir lėtu priartinimu
 2. Paslaugos (horizontali slankiojanti juosta)
-3. Projektai (dvi begalinės marquee eilutės)
-4. Kodėl renkasi PODES
-5. Kaip vyksta darbai
-6. Kainos skaičiuoklė nuo 110 € / m²
-7. Klientų atsiliepimai (4.8 / 5, paslaugos.lt)
+3. Galerija (dvi begalinės eilutės, viena į dešinę, kita į kairę)
+4. Privalumai (nuotraukomis paremtos kortelės)
+5. Eiga (numeruoti žingsniai ant šviečiančios linijos)
+6. Kainos skaičiuoklė nuo 110 € už kv. m
+7. Atsiliepimai (viena begalinė eilutė, slenkanti į kairę)
 8. Dažniausi klausimai
-9. Darbo regionai (Kaunas, visa Lietuva)
-10. Apie mus su parallax fonu
-11. Kontaktai ir užklausos forma
+9. Darbo regionas
+10. Apie PODES su parallax fonu
+11. Kontaktai
 12. Poraštė
 
-Papildomai: AI žinių bazės pokalbių robotas apatiniame dešiniame kampe.
+Papildomai: žinių bazės pokalbių robotas apatiniame dešiniame kampe.
+
+## Faktai, naudoti svetainėje
+
+- Stiklinimo kaina nuo 110 € už kv. m
+- Kaunas, dirbama visoje Lietuvoje
+- Telefonas +370 643 68103
+- Įvertinimas 4.8 iš 5 pagal 9 atsiliepimus
+- 5 metų patirtis, profilis sukurtas 2021-07-21
+- 39 nuotraukos galerijoje
 
 ## Paleidimas
-
-Atidarykite `index.html` naršyklėje arba paleiskite statinį serverį:
 
 ```bash
 npx serve .
 ```
-
-## Ką dar reikia atnaujinti
-
-Telefono numeris, el. paštas ir tikslus adresas yra laikini. Pakeiskite juos tikrais kontaktais `index.html` faile.
