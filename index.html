@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PODES | Aliuminės Stumdomos Langų Sistemos</title>
+<meta name="description" content="PODES: aliuminės stumdomos langų sistemos, terasų stiklinimas, balkonų sistemos ir vitrininiai langai. Kaunas, dirbame visoje Lietuvoje. Kaina nuo 110 € / m².">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230b1622'/%3E%3Crect x='24' y='22' width='24' height='56' rx='4' fill='none' stroke='%237dd3fc' stroke-width='5'/%3E%3Crect x='52' y='22' width='24' height='56' rx='4' fill='none' stroke='%23a78bfa' stroke-width='5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        obsidian: '#080e14',
+        slatedeep: '#0b1622',
+        glasstext: '#94a3b8',
+        silverwhite: '#f8fafc',
+        aqua: '#7dd3fc',
+        violetglass: '#a78bfa'
+      },
+      fontFamily: {
+        sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+html { scroll-behavior: smooth; scroll-padding-top: 6.5rem; }
+body {
+  background-color: #080e14;
+  color: #f8fafc;
+  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* Floating glass refraction gradients over the obsidian base */
+.refraction-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(52rem 34rem at 12% 8%, rgba(56, 189, 248, 0.16), transparent 62%),
+    radial-gradient(44rem 30rem at 88% 22%, rgba(167, 139, 250, 0.14), transparent 60%),
+    radial-gradient(60rem 40rem at 50% 92%, rgba(45, 212, 191, 0.12), transparent 64%),
+    radial-gradient(34rem 24rem at 78% 68%, rgba(125, 211, 252, 0.10), transparent 60%);
+  filter: saturate(115%);
+  animation: driftField 26s ease-in-out infinite alternate;
+}
+@keyframes driftField {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(1.4%, 1.2%, 0) scale(1.05); }
+  100% { transform: translate3d(0.6%, 2.2%, 0) scale(1.02); }
+}
+
+/* Core frosted glass panel */
+.glass {
+  position: relative;
+  background: rgba(18, 28, 40, 0.45);
+  backdrop-filter: blur(20px) saturate(140%);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  border-radius: 22px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .45s cubic-bezier(.2,.7,.3,1), box-shadow .45s ease, background .45s ease;
+}
+.glass.soft { background: rgba(18, 28, 40, 0.34); }
+
+/* Iridescent prism border revealed on hover */
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(125deg, rgba(125, 211, 252, 0.85), rgba(167, 139, 250, 0.7), rgba(45, 212, 191, 0.65), rgba(255, 255, 255, 0.5));
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .45s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+.glass:hover::before { opacity: 1; }
+.glass:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.6), 0 0 34px rgba(125, 211, 252, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* Sweeping specular reflection shimmer */
+.shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.05), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: 4;
+}
+.shine:hover::after { animation: sweepShine 1.05s ease forwards; }
+@keyframes sweepShine {
+  from { left: -130%; }
+  to   { left: 145%; }
+}
+
+/* Primary glass call to action button */
+.btn-glass {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  overflow: hidden;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: #081018;
+  background: linear-gradient(135deg, #e2f4ff 0%, #bfe6ff 42%, #cbd8ff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(125, 211, 252, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+}
+.btn-glass:hover { transform: translateY(-2px); box-shadow: 0 16px 42px rgba(125, 211, 252, 0.42), inset 0 1px 0 rgba(255,255,255,.95); filter: brightness(1.04); }
+.btn-glass:active { transform: translateY(0); }
+
+.btn-ghost {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  overflow: hidden;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #f8fafc;
+  background: rgba(18, 28, 40, 0.45);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform .3s ease, border-color .3s ease, background .3s ease;
+}
+.btn-ghost:hover { transform: translateY(-2px); border-color: rgba(125, 211, 252, 0.6); background: rgba(24, 38, 54, 0.6); }
+
+/* Hero Ken Burns crossfade stack */
+.kb-stage { position: absolute; inset: 0; overflow: hidden; }
+.kb-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 1900ms cubic-bezier(.4,0,.2,1);
+  will-change: opacity, transform;
+}
+.kb-slide.is-active { opacity: 1; animation: kenBurns 9500ms linear forwards; }
+@keyframes kenBurns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.12); }
+}
+
+/* Translucent glass vignette over the hero */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 45%, rgba(8, 14, 20, 0.06) 0%, rgba(8, 14, 20, 0.55) 58%, rgba(8, 14, 20, 0.94) 100%),
+    linear-gradient(180deg, rgba(8, 14, 20, 0.72) 0%, rgba(8, 14, 20, 0.28) 32%, rgba(8, 14, 20, 0.86) 100%);
+  backdrop-filter: blur(1.5px) saturate(120%);
+}
+
+/* Horizontal snap tracks that never wrap or stack */
+.snap-track {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 1.25rem;
+  padding: .5rem .25rem 1.25rem;
+  scrollbar-width: none;
+  Ms-overflow-style: none;
+  cursor: grab;
+  overscroll-behavior-x: contain;
+  Webkit-overflow-scrolling: touch;
+}
+.snap-track::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.snap-track.is-dragging { cursor: grabbing; scroll-behavior: auto; scroll-snap-type: none; }
+.snap-card {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: 78vw;
+  max-width: 340px;
+}
+@media (min-width: 768px) { .snap-card { width: 340px; max-width: none; } }
+@media (min-width: 1280px) { .snap-card { width: 370px; } }
+
+/* Dual direction endless marquee rows */
+.marquee { overflow: hidden; width: 100%; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.marquee-track { display: flex; flex-wrap: nowrap; width: max-content; }
+.marquee-item { flex: 0 0 auto; margin-right: 1.1rem; }
+.track-left { animation: slideLeft 52s linear infinite; }
+.track-right { animation: slideRight 52s linear infinite; }
+@keyframes slideLeft {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes slideRight {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Parallax showcase */
+.parallax-bg {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+@media (max-width: 1023px) { .parallax-bg { background-attachment: scroll; } }
+
+/* Range sliders in glass style */
+input[type="range"] {
+  Webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  Webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffffff, #bfe6ff);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 6px rgba(125, 211, 252, 0.16), 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffffff, #bfe6ff);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 6px rgba(125, 211, 252, 0.16);
+}
+
+/* Text inputs */
+.glass-input {
+  width: 100%;
+  border-radius: 14px;
+  background: rgba(10, 18, 27, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f8fafc;
+  padding: .85rem 1rem;
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+.glass-input::placeholder { color: #64748b; }
+.glass-input:focus { outline: none; border-color: rgba(125, 211, 252, 0.7); box-shadow: 0 0 0 4px rgba(125, 211, 252, 0.12); }
+
+/* FAQ accordion */
+.faq-body { max-height: 0; overflow: hidden; transition: max-height .5s cubic-bezier(.4,0,.2,1), opacity .4s ease; opacity: 0; }
+.faq-item.is-open .faq-body { opacity: 1; }
+.faq-item.is-open .faq-plus { transform: rotate(135deg); color: #7dd3fc; }
+.faq-plus { transition: transform .45s cubic-bezier(.4,0,.2,1), color .3s ease; }
+
+/* Modal */
+.modal-shell { transition: opacity .35s ease, visibility .35s ease; }
+.modal-shell.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.modal-card { transition: transform .45s cubic-bezier(.2,.8,.25,1), opacity .35s ease; }
+.modal-shell.is-hidden .modal-card { transform: translateY(26px) scale(.96); opacity: 0; }
+
+/* Chat widget */
+.pulse-dot { position: relative; }
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  border: 2px solid rgba(74, 222, 128, 0.8);
+  animation: pulseRing 1.8s ease-out infinite;
+}
+@keyframes pulseRing {
+  0%   { transform: scale(.7); opacity: .9; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+.chat-panel { transition: transform .4s cubic-bezier(.2,.8,.25,1), opacity .3s ease, visibility .3s ease; transform-origin: bottom right; }
+.chat-panel.is-hidden { opacity: 0; visibility: hidden; transform: translateY(14px) scale(.94); pointer-events: none; }
+.chat-scroll { scrollbar-width: thin; scrollbar-color: rgba(125,211,252,.35) transparent; }
+.chat-scroll::-webkit-scrollbar { width: 6px; }
+.chat-scroll::-webkit-scrollbar-thumb { background: rgba(125,211,252,.3); border-radius: 999px; }
+
+/* Reveal on scroll */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.3,1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+.text-glow { text-shadow: 0 0 28px rgba(125, 211, 252, 0.35); }
+.emblem {
+  box-shadow: 0 0 22px rgba(125, 211, 252, 0.55), inset 0 0 14px rgba(255, 255, 255, 0.35);
+  animation: emblemGlow 3.6s ease-in-out infinite alternate;
+}
+@keyframes emblemGlow {
+  from { box-shadow: 0 0 16px rgba(125, 211, 252, 0.4), inset 0 0 12px rgba(255,255,255,.3); }
+  to   { box-shadow: 0 0 30px rgba(167, 139, 250, 0.6), inset 0 0 18px rgba(255,255,255,.45); }
+}
+
+.img-fallback { background: linear-gradient(140deg, #0f1d2b 0%, #16293c 45%, #0b1622 100%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .kb-slide.is-active, .track-left, .track-right, .refraction-field, .emblem, .pulse-dot::after { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body class="antialiased">
+<div class="refraction-field"></div>
+
+<header class="fixed top-0 left-0 right-0 z-50">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-3 sm:pt-4">
+    <div class="glass soft rounded-full px-4 sm:px-6 py-2.5 sm:py-3 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+      <span aria-hidden="true"></span>
+
+      <a href="#hero" class="flex items-center gap-2.5 justify-center select-none">
+        <span class="emblem inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl border border-white/30 bg-gradient-to-br from-sky-200/30 to-violet-300/20">
+          <span class="block h-4 w-4 sm:h-[18px] sm:w-[18px] rounded-[4px] border-2 border-sky-200/90 rotate-45"></span>
+        </span>
+        <span class="leading-none">
+          <span class="block text-lg sm:text-2xl font-extrabold tracking-[0.22em] text-silverwhite">PODES</span>
+          <span class="hidden sm:block text-[9px] tracking-[0.3em] text-glasstext uppercase mt-1">Aliuminio Sistemos</span>
+        </span>
+      </a>
+
+      <div class="flex justify-end">
+        <button type="button" data-open-modal class="btn-glass shine text-[11px] sm:text-sm px-3.5 sm:px-6 py-2 sm:py-2.5 whitespace-nowrap">
+          <span class="sm:hidden">Konsultacija</span>
+          <span class="hidden sm:inline">Užsakyti Konsultaciją</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="relative z-10">
+
+  <section id="hero" class="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+    <div class="kb-stage" id="heroStage"></div>
+    <div class="hero-vignette"></div>
+
+    <div class="relative z-10 w-full max-w-5xl px-5 sm:px-8 text-center pt-28 pb-20">
+      <div class="reveal">
+        <span class="glass soft inline-flex items-center gap-2.5 rounded-full px-4 sm:px-5 py-2 text-[11px] sm:text-sm text-silverwhite">
+          <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+          Nuo 110 € / m² • Visoje Lietuvoje
+        </span>
+      </div>
+
+      <h1 class="reveal mt-7 text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.06] tracking-tight text-silverwhite text-glow">
+        Modernios Aliuminio<br class="hidden sm:block"> Stumdomos Sistemos
+      </h1>
+
+      <p class="reveal mx-auto mt-6 max-w-2xl text-base sm:text-lg text-glasstext leading-relaxed">
+        Terasų stiklinimas, balkonų sistemos ir vitrininiai langai pagal individualius matmenis. Gaminame Kaune, montuojame visoje Lietuvoje.
+      </p>
+
+      <div class="reveal mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+        <button type="button" data-open-modal class="btn-glass shine w-full sm:w-auto px-8 py-4 text-base">
+          Užsakyti Konsultaciją
+        </button>
+        <a href="#skaiciuokle" class="btn-ghost shine w-full sm:w-auto px-8 py-4 text-base">
+          Skaičiuoti Kainą
+        </a>
+      </div>
+
+      <div class="reveal mt-12 grid grid-cols-3 gap-2.5 sm:gap-4 max-w-2xl mx-auto">
+        <div class="glass soft shine rounded-2xl px-2 py-4 sm:py-5">
+          <p class="text-xl sm:text-3xl font-extrabold text-silverwhite">4.8</p>
+          <p class="mt-1 text-[10px] sm:text-xs text-glasstext tracking-wide">Įvertinimas</p>
+        </div>
+        <div class="glass soft shine rounded-2xl px-2 py-4 sm:py-5">
+          <p class="text-xl sm:text-3xl font-extrabold text-silverwhite">12+</p>
+          <p class="mt-1 text-[10px] sm:text-xs text-glasstext tracking-wide">Metų Patirtis</p>
+        </div>
+        <div class="glass soft shine rounded-2xl px-2 py-4 sm:py-5">
+          <p class="text-xl sm:text-3xl font-extrabold text-silverwhite">900+</p>
+          <p class="mt-1 text-[10px] sm:text-xs text-glasstext tracking-wide">Objektų</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="paslaugos" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="reveal max-w-3xl">
+        <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-aqua/80">Paslaugos</p>
+        <h2 class="mt-3 text-3xl sm:text-5xl font-extrabold text-silverwhite leading-tight">Sprendimai Iš Aliuminio Ir Stiklo</h2>
+        <p class="mt-4 text-glasstext text-base sm:text-lg">Kiekviena sistema projektuojama pagal jūsų erdvę, todėl standartiniai matmenys mūsų neriboja.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 sm:mt-14 mx-auto max-w-7xl px-2 sm:px-6">
+      <div class="snap-track" data-drag-scroll id="servicesTrack"></div>
+      <p class="px-4 text-center text-xs text-glasstext/70">Braukite į šoną, kad pamatytumėte visas paslaugas</p>
+    </div>
+  </section>
+
+  <section id="projektai" class="relative py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="reveal max-w-3xl">
+        <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-violetglass/90">Portfolio</p>
+        <h2 class="mt-3 text-3xl sm:text-5xl font-extrabold text-silverwhite leading-tight">Įgyvendinti Projektai</h2>
+        <p class="mt-4 text-glasstext text-base sm:text-lg">Terasos, balkonai, verandos ir komercinės vitrinos visoje Lietuvoje.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 sm:mt-14 space-y-4 sm:space-y-5">
+      <div class="marquee" id="marqueeRowOne"></div>
+      <div class="marquee" id="marqueeRowTwo"></div>
+    </div>
+  </section>
+
+  <section id="privalumai" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="reveal max-w-3xl">
+        <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-aqua/80">Privalumai</p>
+        <h2 class="mt-3 text-3xl sm:text-5xl font-extrabold text-silverwhite leading-tight">Kodėl Renkasi PODES</h2>
+      </div>
+
+      <div class="mt-10 sm:mt-14 grid gap-5 sm:gap-6 md:grid-cols-3">
+        <article class="reveal glass shine p-7 sm:p-8">
+          <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-sky-300/25 to-sky-500/10 text-2xl text-sky-200">
+            <i class="fa-solid fa-euro-sign"></i>
+          </span>
+          <h3 class="mt-6 text-xl sm:text-2xl font-bold text-silverwhite">Geriausia Kaina Nuo 110 €/m²</h3>
+          <p class="mt-3 text-glasstext leading-relaxed">Gaminame patys, todėl siūlome konkurencingą kainą be tarpininkų antkainio. Sąmatą pateikiame per vieną darbo dieną.</p>
+        </article>
+
+        <article class="reveal glass shine p-7 sm:p-8">
+          <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-violet-300/25 to-violet-500/10 text-2xl text-violet-200">
+            <i class="fa-solid fa-ruler-combined"></i>
+          </span>
+          <h3 class="mt-6 text-xl sm:text-2xl font-bold text-silverwhite">Nestandartiniai Dydžiai</h3>
+          <p class="mt-3 text-glasstext leading-relaxed">Netaisyklinga terasa ar aukšta veranda nėra kliūtis. Profilius pjauname pagal tikslius matavimus objekte.</p>
+        </article>
+
+        <article class="reveal glass shine p-7 sm:p-8">
+          <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-teal-300/25 to-teal-500/10 text-2xl text-teal-200">
+            <i class="fa-solid fa-bolt"></i>
+          </span>
+          <h3 class="mt-6 text-xl sm:text-2xl font-bold text-silverwhite">Greitas Montavimas</h3>
+          <p class="mt-3 text-glasstext leading-relaxed">Standartinę terasą sumontuojame per vieną dieną, o visas darbų ciklas trunka apie dvi ar tris savaites.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="eiga" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="reveal max-w-3xl">
+        <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-violetglass/90">Procesas</p>
+        <h2 class="mt-3 text-3xl sm:text-5xl font-extrabold text-silverwhite leading-tight">Kaip Vyksta Darbai</h2>
+        <p class="mt-4 text-glasstext text-base sm:text-lg">Keturi aiškūs žingsniai nuo pirmo skambučio iki sumontuotos sistemos.</p>
+      </div>
+
+      <div class="mt-10 sm:mt-14 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <article class="reveal glass shine p-6 sm:p-7">
+          <div class="flex items-center justify-between">
+            <span class="text-5xl font-extrabold text-white/10">01</span>
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/20 bg-white/5 text-xl text-sky-200"><i class="fa-solid fa-comments"></i></span>
+          </div>
+          <h3 class="mt-5 text-lg sm:text-xl font-bold text-silverwhite">Konsultacija</h3>
+          <p class="mt-2.5 text-sm sm:text-base text-glasstext leading-relaxed">Išklausome poreikius, pasiūlome tinkamą profilį ir pateikiame preliminarią kainą.</p>
+        </article>
+
+        <article class="reveal glass shine p-6 sm:p-7">
+          <div class="flex items-center justify-between">
+            <span class="text-5xl font-extrabold text-white/10">02</span>
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/20 bg-white/5 text-xl text-violet-200"><i class="fa-solid fa-ruler"></i></span>
+          </div>
+          <h3 class="mt-5 text-lg sm:text-xl font-bold text-silverwhite">Matavimas</h3>
+          <p class="mt-2.5 text-sm sm:text-base text-glasstext leading-relaxed">Atvykstame į objektą, tiksliai išmatuojame angas ir patvirtiname galutinę sąmatą.</p>
+        </article>
+
+        <article class="reveal glass shine p-6 sm:p-7">
+          <div class="flex items-center justify-between">
+            <span class="text-5xl font-extrabold text-white/10">03</span>
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/20 bg-white/5 text-xl text-teal-200"><i class="fa-solid fa-industry"></i></span>
+          </div>
+          <h3 class="mt-5 text-lg sm:text-xl font-bold text-silverwhite">Gamyba</h3>
+          <p class="mt-2.5 text-sm sm:text-base text-glasstext leading-relaxed">Sistemą pagaminame Kauno ceche per dešimt iki keturiolikos darbo dienų.</p>
+        </article>
+
+        <article class="reveal glass shine p-6 sm:p-7">
+          <div class="flex items-center justify-between">
+            <span class="text-5xl font-extrabold text-white/10">04</span>
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/20 bg-white/5 text-xl text-sky-200"><i class="fa-solid fa-screwdriver-wrench"></i></span>
+          </div>
+          <h3 class="mt-5 text-lg sm:text-xl font-bold text-silverwhite">Montavimas</h3>
+          <p class="mt-2.5 text-sm sm:text-base text-glasstext leading-relaxed">Sumontuojame, sureguliuojame stumdymo mechanizmą ir sutvarkome darbo vietą.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skaiciuokle" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <div class="reveal max-w-3xl">
+        <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-aqua/80">Kainos Skaičiuoklė</p>
+        <h2 class="mt-3 text-3xl sm:text-5xl font-extrabold text-silverwhite leading-tight">Preliminari Kaina Per Kelias Sekundes</h2>
+      </div>
+
+      <div class="reveal mt-10 glass p-6 sm:p-10">
+        <div class="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+          <div class="space-y-9">
+            <div>
+              <div class="flex items-end justify-between gap-4">
+                <label for="lengthRange" class="text-sm sm:text-base font-semibold text-silverwhite">Stiklinamas Ilgis</label>
+                <span class="text-2xl sm:text-3xl font-extrabold text-aqua" id="lengthValue">6.0 m</span>
+              </div>
+              <input id="lengthRange" type="range" min="1" max="15" step="0.5" value="6" class="mt-4">
+              <div class="mt-2 flex justify-between text-[11px] text-glasstext/70"><span>1 m</span><span>15 m</span></div>
+            </div>
+
+            <div>
+              <div class="flex items-end justify-between gap-4">
+                <label for="heightRange" class="text-sm sm:text-base font-semibold text-silverwhite">Sistemos Aukštis</label>
+                <span class="text-2xl sm:text-3xl font-extrabold text-violetglass" id="heightValue">2.2 m</span>
+              </div>
+              <input id="heightRange" type="range" min="1" max="4" step="0.1" value="2.2" class="mt-4">
+              <div class="mt-2 flex justify-between text-[11px] text-glasstext/70"><span>1 m</span><span>4 m</span></div>
+            </div>
+
+            <div>
+              <p class="text-sm sm:text-base font-semibold text-silverwhite">Sistemos Tipas</p>
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3" id="systemTypes">
+                <button type="button" class="btn-ghost shine px-4 py-3 text-sm" data-factor="1" data-type-btn>Beremė Stumdoma</button>
+                <button type="button" class="btn-ghost shine px-4 py-3 text-sm" data-factor="1.25" data-type-btn>Terasos Stogas</button>
+                <button type="button" class="btn-ghost shine px-4 py-3 text-sm" data-factor="1.5" data-type-btn>Šiltas Profilis</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass soft p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <p class="text-xs tracking-[0.25em] uppercase text-glasstext">Preliminari Suma</p>
+              <p class="mt-4 text-4xl sm:text-5xl font-extrabold text-silverwhite text-glow"><span id="totalPrice">1 452</span> €</p>
+              <p class="mt-2 text-sm text-glasstext">Bazinė kaina nuo 110 € / m²</p>
+
+              <dl class="mt-7 space-y-3 text-sm">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                  <dt class="text-glasstext">Plotas</dt>
+                  <dd class="font-semibold text-silverwhite"><span id="areaValue">13.20</span> m²</dd>
+                </div>
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                  <dt class="text-glasstext">Kaina už m²</dt>
+                  <dd class="font-semibold text-silverwhite"><span id="unitPrice">110</span> €</dd>
+                </div>
+                <div class="flex items-center justify-between">
+                  <dt class="text-glasstext">Montavimas</dt>
+                  <dd class="font-semibold text-emerald-300">Įskaičiuotas</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="mt-8">
+              <button type="button" data-open-modal class="btn-glass shine w-full px-6 py-3.5">Gauti Tikslią Sąmatą</button>
+              <p class="mt-3 text-[11px] leading-relaxed text-glasstext/80">Skaičiavimas yra orientacinis. Galutinė kaina priklauso nuo stiklo storio, profilio ir montavimo sąlygų.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="atsiliepimai" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="reveal flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div class="max-w-2xl">
+          <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-violetglass/90">Atsiliepimai</p>
+          <h2 class="mt-3 text-3xl sm:text-5xl font-extrabold text-silverwhite leading-tight">Ką Sako Klientai</h2>
+        </div>
+        <div class="glass soft shine inline-flex items-center gap-4 rounded-2xl px-5 py-4 self-start">
+          <div>
+            <p class="text-3xl font-extrabold text-silverwhite">4.8 <span class="text-base text-glasstext">/ 5</span></p>
+            <div class="mt-1 text-sm text-amber-300">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+          </div>
+          <div class="h-10 w-px bg-white/15"></div>
+          <p class="text-sm text-glasstext leading-tight">Įvertinimas<br><span class="text-silverwhite font-semibold">paslaugos.lt</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 sm:mt-14 mx-auto max-w-7xl px-2 sm:px-6">
+      <div class="snap-track" data-drag-scroll id="reviewsTrack"></div>
+      <p class="px-4 text-center text-xs text-glasstext/70">Braukite į šoną, kad perskaitytumėte daugiau</p>
+    </div>
+  </section>
+
+  <section id="duk" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-4xl px-5 sm:px-8">
+      <div class="reveal text-center">
+        <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-aqua/80">Dažniausi Klausimai</p>
+        <h2 class="mt-3 text-3xl sm:text-5xl font-extrabold text-silverwhite leading-tight">Trumpi Ir Aiškūs Atsakymai</h2>
+      </div>
+      <div class="mt-10 sm:mt-12 space-y-4" id="faqList"></div>
+    </div>
+  </section>
+
+  <section id="regionai" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 items-stretch">
+        <div class="reveal glass shine p-7 sm:p-10 flex flex-col justify-center">
+          <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-aqua/80">Darbo Regionai</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-silverwhite leading-tight">Būstinė Kaune, Dirbame Visoje Lietuvoje</h2>
+          <p class="mt-4 text-glasstext leading-relaxed">Gamyba ir sandėlis įsikūrę Kaune, o montavimo brigados kiekvieną savaitę dirba visuose šalies regionuose. Matavimas ir konsultacija objekte yra nemokami.</p>
+
+          <div class="mt-7 grid grid-cols-2 gap-4">
+            <div class="glass soft rounded-2xl p-4">
+              <p class="text-2xl font-extrabold text-silverwhite">Kaunas</p>
+              <p class="mt-1 text-xs text-glasstext tracking-wide">Pagrindinė Būstinė</p>
+            </div>
+            <div class="glass soft rounded-2xl p-4">
+              <p class="text-2xl font-extrabold text-silverwhite">60</p>
+              <p class="mt-1 text-xs text-glasstext tracking-wide">Miestų Ir Rajonų</p>
+            </div>
+          </div>
+
+          <button type="button" data-open-modal class="btn-glass shine mt-8 px-7 py-3.5 self-start">Patikrinti Savo Miestą</button>
+        </div>
+
+        <div class="reveal glass p-7 sm:p-10">
+          <p class="text-sm font-semibold text-silverwhite">Dažniausiai Aptarnaujami Miestai</p>
+          <div class="mt-5 flex flex-wrap gap-2.5" id="cityList"></div>
+
+          <div class="mt-8 glass soft rounded-2xl p-5 flex items-start gap-4">
+            <span class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/5 text-lg text-sky-200"><i class="fa-solid fa-truck-fast"></i></span>
+            <p class="text-sm text-glasstext leading-relaxed">Pristatymas ir montavimas visoje Lietuvoje. Jei jūsų miesto sąraše nėra, parašykite mums ir suderinsime išvykimą.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="apie" class="relative">
+    <div class="parallax-bg relative min-h-[85vh] flex items-center justify-center py-24 sm:py-32" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=80');">
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(8,14,20,.88) 0%, rgba(8,14,20,.6) 45%, rgba(8,14,20,.92) 100%);"></div>
+
+      <div class="relative z-10 mx-auto max-w-3xl px-5 sm:px-8">
+        <div class="reveal glass shine p-8 sm:p-12 text-center">
+          <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-aqua/80">Apie PODES</p>
+          <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-silverwhite leading-tight">Stiklas, Kuris Pratęsia Jūsų Namus</h2>
+          <p class="mt-5 text-glasstext text-base sm:text-lg leading-relaxed">
+            Jau daugiau nei dešimtmetį projektuojame ir gaminame aliumininio profilio stumdomas sistemas. Dirbame su privačiais namais, daugiabučių balkonais, kavinių terasomis ir komercinėmis vitrinomis. Kiekvieną užsakymą pradedame nuo matavimo objekte, todėl sistema atitinka realią erdvę, o ne standartinį katalogą.
+          </p>
+
+          <div class="mt-9 grid grid-cols-3 gap-3 sm:gap-5">
+            <div><p class="text-2xl sm:text-3xl font-extrabold text-silverwhite">12+</p><p class="mt-1 text-[10px] sm:text-xs text-glasstext">Metų Rinkoje</p></div>
+            <div><p class="text-2xl sm:text-3xl font-extrabold text-silverwhite">900+</p><p class="mt-1 text-[10px] sm:text-xs text-glasstext">Sumontuota</p></div>
+            <div><p class="text-2xl sm:text-3xl font-extrabold text-silverwhite">5 m.</p><p class="mt-1 text-[10px] sm:text-xs text-glasstext">Garantija</p></div>
+          </div>
+
+          <button type="button" data-open-modal class="btn-glass shine mt-9 px-8 py-3.5">Užsakyti Konsultaciją</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontaktai" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <div class="reveal glass shine relative overflow-hidden p-8 sm:p-14 text-center">
+        <div class="pointer-events-none absolute inset-0 opacity-70" style="background: radial-gradient(40rem 20rem at 50% 0%, rgba(125,211,252,.18), transparent 70%);"></div>
+
+        <div class="relative">
+          <p class="text-xs sm:text-sm tracking-[0.3em] uppercase text-aqua/80">Nemokama Konsultacija</p>
+          <h2 class="mt-4 text-3xl sm:text-5xl font-extrabold text-silverwhite leading-tight">Gaukite Sąmatą Per Vieną Darbo Dieną</h2>
+          <p class="mx-auto mt-5 max-w-2xl text-glasstext text-base sm:text-lg leading-relaxed">
+            Palikite savo vardą, telefoną ir apytikslius matmenis. Susisieksime, patikslinsime detales ir suderinsime nemokamą matavimą jūsų objekte.
+          </p>
+
+          <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            <button type="button" data-open-modal class="btn-glass shine w-full sm:w-auto px-9 py-4 text-base">Užsakyti Konsultaciją</button>
+            <a href="tel:+37060000000" class="btn-ghost shine w-full sm:w-auto px-9 py-4 text-base">
+              <i class="fa-solid fa-phone text-sky-200"></i> +370 600 00000
+            </a>
+          </div>
+
+          <div class="mt-10 grid gap-4 sm:grid-cols-3 text-left">
+            <div class="glass soft rounded-2xl p-5">
+              <p class="text-xs tracking-[0.2em] uppercase text-glasstext">Adresas</p>
+              <p class="mt-2 font-semibold text-silverwhite">Kaunas, Lietuva</p>
+            </div>
+            <div class="glass soft rounded-2xl p-5">
+              <p class="text-xs tracking-[0.2em] uppercase text-glasstext">El. Paštas</p>
+              <p class="mt-2 font-semibold text-silverwhite">info@podes.lt</p>
+            </div>
+            <div class="glass soft rounded-2xl p-5">
+              <p class="text-xs tracking-[0.2em] uppercase text-glasstext">Darbo Laikas</p>
+              <p class="mt-2 font-semibold text-silverwhite">I iki V, 8 iki 18 val.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="relative z-10 border-t border-white/10 py-12 sm:py-16">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-between lg:text-left">
+      <div class="flex flex-col items-center gap-3 lg:items-start">
+        <div class="flex items-center gap-3">
+          <span class="emblem inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/30 bg-gradient-to-br from-sky-200/30 to-violet-300/20">
+            <span class="block h-[18px] w-[18px] rounded-[4px] border-2 border-sky-200/90 rotate-45"></span>
+          </span>
+          <span>
+            <span class="block text-2xl font-extrabold tracking-[0.22em] text-silverwhite">PODES</span>
+            <span class="block text-[9px] tracking-[0.3em] text-glasstext uppercase mt-1">Aliuminio Sistemos</span>
+          </span>
+        </div>
+        <p class="max-w-sm text-sm text-glasstext leading-relaxed">Aliuminės stumdomos langų sistemos, terasų stiklinimas ir vitrinos. Kaunas, aptarnaujame visą Lietuvą.</p>
+      </div>
+
+      <div class="text-sm text-glasstext space-y-1.5">
+        <p><span class="text-silverwhite font-semibold">Būstinė:</span> Kaunas, Lietuva</p>
+        <p><span class="text-silverwhite font-semibold">Regionas:</span> Visa Lietuva</p>
+        <p><span class="text-silverwhite font-semibold">Kaina:</span> Nuo 110 € / m²</p>
+        <p><span class="text-silverwhite font-semibold">El. paštas:</span> info@podes.lt</p>
+      </div>
+
+      <button type="button" data-open-modal class="btn-glass shine px-8 py-3.5">Užsakyti Konsultaciją</button>
+    </div>
+
+    <div class="mt-10 border-t border-white/10 pt-6 text-center text-xs text-glasstext/70">
+      <p>© <span id="yearNow">2026</span> PODES. Visos teisės saugomos.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="leadModal" class="modal-shell is-hidden fixed inset-0 z-[90] flex items-center justify-center px-4 py-8" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="absolute inset-0 bg-obsidian/80 backdrop-blur-md" data-close-modal></div>
+
+  <div class="modal-card glass relative w-full max-w-lg p-6 sm:p-9 max-h-[90vh] overflow-y-auto">
+    <button type="button" data-close-modal aria-label="Uždaryti" class="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-glasstext hover:text-silverwhite transition">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div id="modalFormWrap">
+      <p class="text-xs tracking-[0.3em] uppercase text-aqua/80">Nemokama Konsultacija</p>
+      <h3 id="modalTitle" class="mt-3 text-2xl sm:text-3xl font-extrabold text-silverwhite leading-tight">Užsakyti Konsultaciją</h3>
+      <p class="mt-3 text-sm text-glasstext leading-relaxed">Užpildykite formą ir susisieksime artimiausiu metu. Konsultacija ir matavimas yra nemokami.</p>
+
+      <form id="leadForm" class="mt-7 space-y-4" novalidate>
+        <div>
+          <label for="leadName" class="block text-sm font-semibold text-silverwhite mb-2">Vardas</label>
+          <input id="leadName" name="vardas" type="text" class="glass-input" placeholder="Jūsų vardas" required>
+        </div>
+        <div>
+          <label for="leadPhone" class="block text-sm font-semibold text-silverwhite mb-2">Telefono Numeris</label>
+          <input id="leadPhone" name="telefonas" type="tel" class="glass-input" placeholder="+370 600 00000" required>
+        </div>
+        <div>
+          <label for="leadCity" class="block text-sm font-semibold text-silverwhite mb-2">Miestas Ir Matmenys</label>
+          <textarea id="leadCity" name="miestas" rows="3" class="glass-input resize-none" placeholder="Pvz. Kaunas, terasa 6 x 2.2 m" required></textarea>
+        </div>
+
+        <p id="leadError" class="hidden text-sm text-rose-300"></p>
+
+        <button type="submit" class="btn-glass shine w-full px-6 py-3.5 text-base">Siųsti Užklausą</button>
+        <p class="text-[11px] text-center text-glasstext/70 leading-relaxed">Siųsdami užklausą sutinkate, kad susisiektume dėl pasiūlymo.</p>
+      </form>
+    </div>
+
+    <div id="modalSuccess" class="hidden text-center py-6">
+      <span class="inline-flex h-16 w-16 items-center justify-center rounded-full border border-emerald-300/40 bg-emerald-400/10 text-2xl text-emerald-300">
+        <i class="fa-solid fa-check"></i>
+      </span>
+      <h3 class="mt-6 text-2xl font-extrabold text-silverwhite">Ačiū, Užklausa Gauta</h3>
+      <p class="mt-3 text-glasstext leading-relaxed">Susisieksime su jumis per vieną darbo dieną ir suderinsime nemokamą matavimą.</p>
+      <button type="button" data-close-modal class="btn-ghost shine mt-7 px-7 py-3">Uždaryti</button>
+    </div>
+  </div>
+</div>
+
+<div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[80] flex flex-col items-end gap-3">
+  <div id="chatPanel" class="chat-panel is-hidden glass w-[calc(100vw-2rem)] max-w-[370px] h-[min(70vh,520px)] flex flex-col">
+    <div class="flex items-center gap-3 border-b border-white/10 px-4 py-3.5">
+      <span class="pulse-dot inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-gradient-to-br from-sky-300/25 to-violet-400/15 text-sky-200">
+        <i class="fa-solid fa-comment-dots"></i>
+      </span>
+      <div class="flex-1 leading-tight">
+        <p class="text-sm font-bold text-silverwhite">PODES Konsultantas</p>
+        <p class="text-[11px] text-emerald-300 flex items-center gap-1.5"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Prisijungęs</p>
+      </div>
+      <button type="button" id="chatClose" aria-label="Uždaryti pokalbį" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/5 text-glasstext hover:text-silverwhite transition">
+        <i class="fa-solid fa-xmark text-xs"></i>
+      </button>
+    </div>
+
+    <div id="chatMessages" class="chat-scroll flex-1 overflow-y-auto px-4 py-4 space-y-3"></div>
+
+    <div id="chatPills" class="flex flex-wrap gap-2 px-4 pb-3"></div>
+
+    <form id="chatForm" class="flex items-center gap-2 border-t border-white/10 px-3 py-3">
+      <input id="chatInput" type="text" autocomplete="off" class="glass-input py-2.5 text-sm" placeholder="Rašykite klausimą...">
+      <button type="submit" aria-label="Siųsti" class="btn-glass shine h-11 w-11 shrink-0 rounded-full">
+        <i class="fa-solid fa-paper-plane text-sm"></i>
+      </button>
+    </form>
+  </div>
+
+  <button type="button" id="chatToggle" aria-label="Atidaryti pokalbį" class="glass shine relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full text-xl sm:text-2xl text-sky-200">
+    <i class="fa-solid fa-comments"></i>
+    <span class="pulse-dot absolute right-1 top-1 h-3 w-3 rounded-full bg-emerald-400 border border-emerald-200/70"></span>
+  </button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var IMG = function (id, w) {
+    return 'https://images.unsplash.com/photo-' + id + '?auto=format&fit=crop&w=' + (w || 1200) + '&q=80';
+  };
+
+  /* Hero crossfade photo stack */
+  var heroPhotos = [
+    IMG('1600607687939-ce8a6c25118c', 1920),
+    IMG('1600566753190-17f0baa2a6c3', 1920),
+    IMG('1512917774080-9991f1c4c750', 1920),
+    IMG('1600585154340-be6161a56a0c', 1920),
+    IMG('1493809842364-78817add7ffb', 1920)
+  ];
+
+  var stage = document.getElementById('heroStage');
+  var slides = [];
+  heroPhotos.forEach(function (src, index) {
+    var slide = document.createElement('div');
+    slide.className = 'kb-slide';
+    slide.style.backgroundImage = 'url("' + src + '")';
+    if (index === 0) { slide.classList.add('is-active'); }
+    stage.appendChild(slide);
+    slides.push(slide);
+  });
+
+  var current = 0;
+  if (slides.length > 1) {
+    setInterval(function () {
+      var next = (current + 1) % slides.length;
+      slides[next].classList.remove('is-active');
+      void slides[next].offsetWidth;
+      slides[next].classList.add('is-active');
+      var leaving = slides[current];
+      setTimeout(function () { leaving.classList.remove('is-active'); }, 1900);
+      current = next;
+    }, 4000);
+  }
+
+  /* Services horizontal track */
+  var services = [
+    {
+      title: 'Terasų Stiklinimas',
+      text: 'Beremės ir aliuminio profilio stumdomos sienelės terasoms. Apsaugo nuo vėjo ir lietaus, o vasarą visiškai atsiveria.',
+      icon: 'fa-solid fa-house-chimney-window',
+      img: IMG('1600607687939-ce8a6c25118c', 900),
+      price: 'Nuo 110 € / m²'
+    },
+    {
+      title: 'Balkonų Sistemos',
+      text: 'Stumdomi balkonų langai daugiabučiams ir naujos statybos projektams. Lengvas valymas ir tvarkingas profilis.',
+      icon: 'fa-solid fa-building',
+      img: IMG('1522708323590-d24dbb6b0267', 900),
+      price: 'Nuo 120 € / m²'
+    },
+    {
+      title: 'Vitrininiai Langai',
+      text: 'Didelio formato stiklo vitrinos kavinėms, salonams ir biurams. Šilti profiliai su geromis šilumos savybėmis.',
+      icon: 'fa-solid fa-store',
+      img: IMG('1497366216548-37526070297c', 900),
+      price: 'Nuo 150 € / m²'
+    },
+    {
+      title: 'Pavėsinės Ir Verandos',
+      text: 'Stiklintos verandos ir pavėsinės su aliuminio karkasu. Sprendimas, kuris pratęsia lauko sezoną iki žiemos.',
+      icon: 'fa-solid fa-umbrella-beach',
+      img: IMG('1505691938895-1758d7feb511', 900),
+      price: 'Nuo 140 € / m²'
+    },
+    {
+      title: 'Stumdomos Durys',
+      text: 'Panoraminės stumdomos durys su plonais rėmais. Maksimalus stiklo plotas ir sklandus stumdymo mechanizmas.',
+      icon: 'fa-solid fa-door-open',
+      img: IMG('1600566753086-00f18fb6b3ea', 900),
+      price: 'Nuo 130 € / m²'
+    },
+    {
+      title: 'Stiklinės Pertvaros',
+      text: 'Vidaus pertvaros biurams ir namams. Erdvę zonuoja neprarandant natūralios šviesos.',
+      icon: 'fa-solid fa-border-all',
+      img: IMG('1524758631624-e2822e304c36', 900),
+      price: 'Nuo 125 € / m²'
+    }
+  ];
+
+  var servicesTrack = document.getElementById('servicesTrack');
+  services.forEach(function (item) {
+    var card = document.createElement('article');
+    card.className = 'snap-card glass shine flex flex-col';
+    card.innerHTML =
+      '<div class="img-fallback relative h-44 sm:h-48 w-full overflow-hidden">' +
+        '<img src="' + item.img + '" alt="' + item.title + '" loading="lazy" class="h-full w-full object-cover opacity-90 transition duration-700 hover:scale-105">' +
+        '<div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(8,14,20,.15), rgba(8,14,20,.85));"></div>' +
+        '<span class="absolute left-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/25 bg-white/10 text-lg text-sky-100 backdrop-blur-md"><i class="' + item.icon + '"></i></span>' +
+        '<span class="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[11px] font-semibold text-silverwhite backdrop-blur-md">' + item.price + '</span>' +
+      '</div>' +
+      '<div class="flex flex-1 flex-col p-6">' +
+        '<h3 class="text-xl font-bold text-silverwhite">' + item.title + '</h3>' +
+        '<p class="mt-3 flex-1 text-sm leading-relaxed text-glasstext">' + item.text + '</p>' +
+        '<button type="button" data-open-modal class="btn-ghost shine mt-6 w-full px-5 py-2.5 text-sm">Gauti Pasiūlymą</button>' +
+      '</div>';
+    servicesTrack.appendChild(card);
+  });
+
+  /* Projects dual direction marquee rows */
+  var rowOnePhotos = [
+    '1600607687939-ce8a6c25118c', '1600566753086-00f18fb6b3ea', '1512917774080-9991f1c4c750',
+    '1493809842364-78817add7ffb', '1600585154340-be6161a56a0c', '1497366216548-37526070297c',
+    '1600566753190-17f0baa2a6c3', '1524758631624-e2822e304c36'
+  ];
+  var rowTwoPhotos = [
+    '1505691938895-1758d7feb511', '1522708323590-d24dbb6b0267', '1449844908441-8829872d2607',
+    '1416331108676-a22ccb276e35', '1502005229762-cf1b2da7c5d6', '1560448204-e02f11c3d0e2',
+    '1536376072261-38c75010e6c9', '1487958449943-2429e8be8625'
+  ];
+
+  function buildMarquee(container, photos, directionClass) {
+    var track = document.createElement('div');
+    track.className = 'marquee-track ' + directionClass;
+
+    function appendSet() {
+      photos.forEach(function (id) {
+        var cell = document.createElement('figure');
+        cell.className = 'marquee-item img-fallback glass shine h-40 w-60 sm:h-52 sm:w-80 lg:h-60 lg:w-96 rounded-2xl';
+        cell.innerHTML =
+          '<img src="' + IMG(id, 800) + '" alt="PODES projektas" loading="lazy" class="h-full w-full object-cover opacity-85 transition duration-700 hover:opacity-100">';
+        track.appendChild(cell);
+      });
+    }
+
+    appendSet();
+    appendSet();
+    container.appendChild(track);
+  }
+
+  buildMarquee(document.getElementById('marqueeRowOne'), rowOnePhotos, 'track-right');
+  buildMarquee(document.getElementById('marqueeRowTwo'), rowTwoPhotos, 'track-left');
+
+  /* Reviews horizontal track */
+  var reviews = [
+    { name: 'Rūta M.', city: 'Kaunas', stars: 5, text: 'Terasą sustiklino per vieną dieną. Viskas tvarkinga, stumdymas lengvas, o kaina buvo mažesnė nei kitų pasiūlymai.' },
+    { name: 'Mantas K.', city: 'Vilnius', stars: 5, text: 'Balkonas netaisyklingos formos, todėl kiti atsisakė. PODES viską išmatavo vietoje ir pagamino tiksliai.' },
+    { name: 'Gintarė P.', city: 'Klaipėda', stars: 4, text: 'Labai patenkinta rezultatu. Gamyba užtruko šiek tiek ilgiau nei planuota, bet apie tai informavo iš anksto.' },
+    { name: 'Tomas B.', city: 'Šiauliai', stars: 5, text: 'Kavinės vitrina atrodo puikiai. Konsultantas padėjo išsirinkti tinkamą stiklą ir paaiškino visus skirtumus.' },
+    { name: 'Eglė J.', city: 'Panevėžys', stars: 5, text: 'Veranda dabar naudojama net rudenį. Montuotojai dirbo švariai ir viską sutvarkė po savęs.' },
+    { name: 'Darius L.', city: 'Alytus', stars: 5, text: 'Kaina aiški nuo pat pradžių, jokių staigmenų sąskaitoje. Rekomenduoju visiems, kas planuoja terasos stiklinimą.' }
+  ];
+
+  var reviewsTrack = document.getElementById('reviewsTrack');
+  reviews.forEach(function (item) {
+    var stars = '';
+    var s = 0;
+    while (s < 5) {
+      stars += s < item.stars ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+      s += 1;
+    }
+    var card = document.createElement('article');
+    card.className = 'snap-card glass shine flex flex-col p-6 sm:p-7';
+    card.innerHTML =
+      '<div class="flex items-center gap-3">' +
+        '<span class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-sky-300/25 to-violet-400/15 font-bold text-silverwhite">' + item.name.charAt(0) + '</span>' +
+        '<div class="leading-tight">' +
+          '<p class="font-semibold text-silverwhite">' + item.name + '</p>' +
+          '<p class="text-xs text-glasstext">' + item.city + '</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="mt-4 text-sm text-amber-300">' + stars + '</div>' +
+      '<p class="mt-4 flex-1 text-sm leading-relaxed text-glasstext">' + item.text + '</p>' +
+      '<p class="mt-5 border-t border-white/10 pt-4 text-[11px] tracking-wide text-glasstext/70">Šaltinis: paslaugos.lt</p>';
+    reviewsTrack.appendChild(card);
+  });
+
+  /* Drag to scroll on snap tracks */
+  document.querySelectorAll('[data-drag-scroll]').forEach(function (track) {
+    var isDown = false;
+    var startX = 0;
+    var startScroll = 0;
+
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch') { return; }
+      isDown = true;
+      startX = e.clientX;
+      startScroll = track.scrollLeft;
+      track.classList.add('is-dragging');
+    });
+
+    track.addEventListener('pointermove', function (e) {
+      if (!isDown) { return; }
+      e.preventDefault();
+      track.scrollLeft = startScroll - (e.clientX - startX) * 1.15;
+    });
+
+    function release() {
+      if (!isDown) { return; }
+      isDown = false;
+      track.classList.remove('is-dragging');
+    }
+
+    track.addEventListener('pointerup', release);
+    track.addEventListener('pointerleave', release);
+    track.addEventListener('pointercancel', release);
+    track.addEventListener('click', function (e) {
+      if (Math.abs(track.scrollLeft - startScroll) > 6 && e.target.closest('button')) {
+        e.preventDefault();
+      }
+    }, true);
+  });
+
+  /* Price calculator */
+  var lengthRange = document.getElementById('lengthRange');
+  var heightRange = document.getElementById('heightRange');
+  var lengthValue = document.getElementById('lengthValue');
+  var heightValue = document.getElementById('heightValue');
+  var areaValue = document.getElementById('areaValue');
+  var unitPrice = document.getElementById('unitPrice');
+  var totalPrice = document.getElementById('totalPrice');
+  var typeButtons = document.querySelectorAll('[data-type-btn]');
+  var factor = 1;
+
+  function formatNumber(value) {
+    return Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  }
+
+  function recalc() {
+    var len = parseFloat(lengthRange.value);
+    var hgt = parseFloat(heightRange.value);
+    var area = len * hgt;
+    var unit = 110 * factor;
+
+    lengthValue.textContent = len.toFixed(1) + ' m';
+    heightValue.textContent = hgt.toFixed(1) + ' m';
+    areaValue.textContent = area.toFixed(2);
+    unitPrice.textContent = formatNumber(unit);
+    totalPrice.textContent = formatNumber(area * unit);
+  }
+
+  function setActiveType(button) {
+    typeButtons.forEach(function (btn) {
+      btn.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+      btn.style.background = 'rgba(18, 28, 40, 0.45)';
+      btn.style.color = '#f8fafc';
+    });
+    button.style.borderColor = 'rgba(125, 211, 252, 0.75)';
+    button.style.background = 'rgba(125, 211, 252, 0.16)';
+    button.style.color = '#e0f2fe';
+    factor = parseFloat(button.getAttribute('data-factor'));
+    recalc();
+  }
+
+  typeButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () { setActiveType(btn); });
+  });
+  if (typeButtons.length) { setActiveType(typeButtons[0]); }
+
+  lengthRange.addEventListener('input', recalc);
+  heightRange.addEventListener('input', recalc);
+  recalc();
+
+  /* FAQ accordion */
+  var faqData = [
+    { q: 'Kiek kainuoja terasos stiklinimas?', a: 'Kaina prasideda nuo 110 € už kvadratinį metrą. Galutinė suma priklauso nuo pasirinkto profilio, stiklo storio, sistemos aukščio ir montavimo sąlygų. Tikslią sąmatą pateikiame po nemokamo matavimo objekte.' },
+    { q: 'Ar gaminate nestandartinių matmenų sistemas?', a: 'Taip, tai yra pagrindinė mūsų specializacija. Gaminame pagal individualius matavimus, todėl netaisyklingos formos terasos, aukštos verandos ar siauri balkonai nėra kliūtis.' },
+    { q: 'Kiek laiko trunka gamyba ir montavimas?', a: 'Gamyba paprastai trunka nuo dešimt iki keturiolika darbo dienų. Standartinė terasa sumontuojama per vieną darbo dieną, didesni objektai gali užtrukti dvi ar tris dienas.' },
+    { q: 'Kokiuose miestuose dirbate?', a: 'Gamyba ir būstinė yra Kaune, tačiau montuojame visoje Lietuvoje: Vilniuje, Klaipėdoje, Šiauliuose, Panevėžyje, Alytuje, Marijampolėje, Utenoje, Telšiuose ir kituose miestuose bei rajonuose.' },
+    { q: 'Ar matavimas ir konsultacija yra mokami?', a: 'Ne. Konsultacija telefonu ir matavimas jūsų objekte yra nemokami, net jei vėliau nuspręsite rinktis kitą sprendimą.' },
+    { q: 'Kokią garantiją suteikiate?', a: 'Sistemoms ir montavimo darbams suteikiame penkerių metų garantiją. Prireikus atvykstame sureguliuoti mechanizmo ar pakeisti detales.' },
+    { q: 'Ar stumdomos sistemos apsaugo nuo šalčio?', a: 'Beremės sistemos apsaugo nuo vėjo, lietaus ir dulkių, todėl terasa tampa naudojama beveik visus metus. Jei reikia visiškos šiluminės izoliacijos, siūlome šiltus profilius su stiklo paketu.' }
+  ];
+
+  var faqList = document.getElementById('faqList');
+  faqData.forEach(function (item, index) {
+    var wrap = document.createElement('div');
+    wrap.className = 'faq-item glass shine';
+    wrap.innerHTML =
+      '<button type="button" class="faq-head flex w-full items-center justify-between gap-4 px-5 sm:px-7 py-5 text-left" aria-expanded="false" aria-controls="faqBody' + index + '">' +
+        '<span class="text-base sm:text-lg font-semibold text-silverwhite">' + item.q + '</span>' +
+        '<span class="faq-plus inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/5 text-glasstext"><i class="fa-solid fa-plus text-sm"></i></span>' +
+      '</button>' +
+      '<div class="faq-body" id="faqBody' + index + '">' +
+        '<p class="px-5 sm:px-7 pb-6 text-sm sm:text-base leading-relaxed text-glasstext">' + item.a + '</p>' +
+      '</div>';
+    faqList.appendChild(wrap);
+  });
+
+  faqList.addEventListener('click', function (e) {
+    var head = e.target.closest('.faq-head');
+    if (!head) { return; }
+    var item = head.parentElement;
+    var body = item.querySelector('.faq-body');
+    var isOpen = item.classList.contains('is-open');
+
+    faqList.querySelectorAll('.faq-item').forEach(function (other) {
+      other.classList.remove('is-open');
+      other.querySelector('.faq-body').style.maxHeight = null;
+      other.querySelector('.faq-head').setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      item.classList.add('is-open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      head.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  /* Service area city chips */
+  var cities = ['Kaunas', 'Vilnius', 'Klaipėda', 'Šiauliai', 'Panevėžys', 'Alytus', 'Marijampolė', 'Mažeikiai', 'Jonava', 'Utena', 'Kėdainiai', 'Telšiai', 'Visaginas', 'Tauragė', 'Ukmergė', 'Plungė', 'Palanga', 'Druskininkai'];
+  var cityList = document.getElementById('cityList');
+  cities.forEach(function (city) {
+    var chip = document.createElement('span');
+    chip.className = 'glass soft shine rounded-full px-4 py-2 text-sm text-silverwhite';
+    chip.textContent = city;
+    cityList.appendChild(chip);
+  });
+
+  /* Consultation modal */
+  var modal = document.getElementById('leadModal');
+  var leadForm = document.getElementById('leadForm');
+  var formWrap = document.getElementById('modalFormWrap');
+  var successWrap = document.getElementById('modalSuccess');
+  var leadError = document.getElementById('leadError');
+  var lastFocus = null;
+
+  function openModal() {
+    lastFocus = document.activeElement;
+    modal.classList.remove('is-hidden');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () {
+      var first = document.getElementById('leadName');
+      if (first && successWrap.classList.contains('hidden')) { first.focus(); }
+    }, 260);
+  }
+
+  function closeModal() {
+    modal.classList.add('is-hidden');
+    document.body.style.overflow = '';
+    setTimeout(function () {
+      formWrap.classList.remove('hidden');
+      successWrap.classList.add('hidden');
+      leadForm.reset();
+      leadError.classList.add('hidden');
+    }, 380);
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-open-modal]')) {
+      e.preventDefault();
+      openModal();
+      return;
+    }
+    if (e.target.closest('[data-close-modal]')) {
+      e.preventDefault();
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.classList.contains('is-hidden')) { closeModal(); }
+  });
+
+  leadForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('leadName').value.trim();
+    var phone = document.getElementById('leadPhone').value.trim();
+    var city = document.getElementById('leadCity').value.trim();
+
+    if (name.length < 2 || phone.replace(/\D/g, '').length < 6 || city.length < 2) {
+      leadError.textContent = 'Užpildykite visus laukus ir įrašykite teisingą telefono numerį.';
+      leadError.classList.remove('hidden');
+      return;
+    }
+
+    leadError.classList.add('hidden');
+    formWrap.classList.add('hidden');
+    successWrap.classList.remove('hidden');
+  });
+
+  /* Knowledge base chatbot */
+  var knowledge = [
+    {
+      keys: ['kaina', 'kainu', 'kiek kainuoja', 'eur', 'pigiau', 'brangu', 'kainos', 'suma', 'samata', 'sąmata'],
+      answer: 'Stiklinimo kaina prasideda nuo 110 € už kvadratinį metrą. Terasos stogas ir šilti profiliai kainuoja daugiau. Pasinaudokite kainos skaičiuokle puslapyje arba palikite matmenis ir atsiųsime tikslią sąmatą.'
+    },
+    {
+      keys: ['miest', 'lietuv', 'kaun', 'vilni', 'klaip', 'siauli', 'šiauli', 'paneve', 'panevė', 'regionas', 'dirbate', 'atvyks', 'kur jus', 'aptarnau'],
+      answer: 'Mūsų gamyba ir būstinė yra Kaune, o montuojame visoje Lietuvoje. Dažniausiai dirbame Kaune, Vilniuje, Klaipėdoje, Šiauliuose, Panevėžyje ir aplinkiniuose rajonuose. Matavimas objekte yra nemokamas.'
+    },
+    {
+      keys: ['teras', 'lauko', 'kiemas'],
+      answer: 'Terasų stiklinimui siūlome beremes ir aliuminio profilio stumdomas sistemas. Jos apsaugo nuo vėjo bei lietaus, o šiltuoju metų laiku stiklai suslenkami į šoną ir terasa visiškai atsiveria. Kaina nuo 110 € / m².'
+    },
+    {
+      keys: ['balkon', 'daugiabut', 'daugiabuč', 'lodz'],
+      answer: 'Balkonų stumdomos sistemos tinka tiek senos, tiek naujos statybos daugiabučiams. Gaminame pagal individualius matmenis, todėl netaisyklingi balkonai nėra kliūtis. Kaina nuo 120 € / m².'
+    },
+    {
+      keys: ['vitrin', 'parduotuv', 'kavin', 'biur', 'komercin'],
+      answer: 'Vitrininius langus gaminame kavinėms, saloninėms erdvėms ir biurams. Naudojame šiltus aliuminio profilius su stiklo paketais, kurie išlaiko gerą šilumos izoliaciją. Kaina nuo 150 € / m².'
+    },
+    {
+      keys: ['pavesin', 'pavėsin', 'veranda', 'verand', 'stogas', 'stogel'],
+      answer: 'Stiklintos verandos ir pavėsinės su aliuminio karkasu leidžia naudotis lauko erdve net vėsiu metu. Sistemą projektuojame kartu su stogo sprendimu. Kaina nuo 140 € / m².'
+    },
+    {
+      keys: ['nestandart', 'dydis', 'dydži', 'matmen', 'forma', 'individual'],
+      answer: 'Nestandartiniai dydžiai yra mūsų specializacija. Kiekvieną sistemą pjauname pagal matavimus objekte, todėl netaisyklingos formos terasos ar aukštos angos nėra problema.'
+    },
+    {
+      keys: ['kiek trunka', 'terminas', 'laik', 'greit', 'gamyba', 'montav', 'kada'],
+      answer: 'Gamyba trunka nuo dešimt iki keturiolika darbo dienų. Standartinę terasą sumontuojame per vieną dieną, didesniems objektams reikia dviejų ar trijų dienų.'
+    },
+    {
+      keys: ['garantij', 'servis', 'remont', 'sugend'],
+      answer: 'Sistemoms ir montavimo darbams suteikiame penkerių metų garantiją. Prireikus atvykstame sureguliuoti stumdymo mechanizmo arba pakeisti detales.'
+    },
+    {
+      keys: ['matav', 'apziur', 'apžiūr', 'nemokam', 'konsultacij'],
+      answer: 'Konsultacija ir matavimas objekte yra nemokami. Suderiname jums patogų laiką, atvykstame, išmatuojame angas ir pateikiame galutinę sąmatą.'
+    },
+    {
+      keys: ['saltis', 'šalt', 'silum', 'šilum', 'ziem', 'žiem', 'izoliacij'],
+      answer: 'Beremės sistemos apsaugo nuo vėjo, lietaus ir dulkių, todėl terasa naudojama beveik ištisus metus. Jei reikia pilnos šiluminės izoliacijos, siūlome šiltus profilius su stiklo paketu.'
+    },
+    {
+      keys: ['susisiek', 'telefon', 'uzsak', 'užsak', 'noriu', 'pasiulym', 'pasiūlym', 'forma', 'kontakt'],
+      answer: 'Puiku. Spauskite mygtuką Užsakyti Konsultaciją, palikite vardą, telefoną ir apytikslius matmenis. Susisieksime per vieną darbo dieną.'
+    },
+    {
+      keys: ['labas', 'sveiki', 'laba diena', 'hey', 'hello'],
+      answer: 'Sveiki. Esu PODES konsultantas. Galiu papasakoti apie kainas, sistemas, terminus ir darbo regionus. Ko norėtumėte sužinoti?'
+    },
+    {
+      keys: ['aciu', 'ačiū', 'dekui', 'dėkui', 'supratau'],
+      answer: 'Prašom. Jei kils daugiau klausimų, rašykite. O jei norite tikslios sąmatos, palikite užklausą formoje.'
+    }
+  ];
+
+  var fallbackAnswer = 'Tiksliai neradau atsakymo, bet galiu padėti su kainomis, sistemų tipais, terminais ir darbo regionais. PODES gamina aliuminio stumdomas sistemas Kaune ir montuoja visoje Lietuvoje, kaina nuo 110 € / m². Norite, kad susisiektume telefonu?';
+
+  var quickQuestions = [
+    'Kokia stiklinimo kaina?',
+    'Kuriuose miestuose dirbate?',
+    'Kiek trunka gamyba?',
+    'Ar gaminate nestandartinius dydžius?'
+  ];
+
+  var chatPanel = document.getElementById('chatPanel');
+  var chatToggle = document.getElementById('chatToggle');
+  var chatClose = document.getElementById('chatClose');
+  var chatMessages = document.getElementById('chatMessages');
+  var chatPills = document.getElementById('chatPills');
+  var chatForm = document.getElementById('chatForm');
+  var chatInput = document.getElementById('chatInput');
+  var chatStarted = false;
+
+  function normalize(text) {
+    return text
+      .toLowerCase()
+      .replace(/ą/g, 'a').replace(/č/g, 'c').replace(/ę/g, 'e').replace(/ė/g, 'e')
+      .replace(/į/g, 'i').replace(/š/g, 's').replace(/ų/g, 'u').replace(/ū/g, 'u')
+      .replace(/ž/g, 'z');
+  }
+
+  function findAnswer(question) {
+    var q = normalize(question);
+    var best = null;
+    var bestScore = 0;
+
+    knowledge.forEach(function (entry) {
+      var score = 0;
+      entry.keys.forEach(function (key) {
+        var k = normalize(key);
+        if (q.indexOf(k) !== -1) { score += k.length; }
+      });
+      if (score > bestScore) {
+        bestScore = score;
+        best = entry;
+      }
+    });
+
+    return best ? best.answer : fallbackAnswer;
+  }
+
+  function addMessage(text, who) {
+    var row = document.createElement('div');
+    row.className = who === 'user' ? 'flex justify-end' : 'flex justify-start';
+
+    var bubble = document.createElement('div');
+    bubble.className = who === 'user'
+      ? 'max-w-[85%] rounded-2xl rounded-br-md border border-white/20 bg-sky-300/20 px-4 py-2.5 text-sm text-silverwhite'
+      : 'max-w-[88%] rounded-2xl rounded-bl-md border border-white/12 bg-white/5 px-4 py-2.5 text-sm leading-relaxed text-glasstext';
+    bubble.textContent = text;
+
+    row.appendChild(bubble);
+    chatMessages.appendChild(row);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return row;
+  }
+
+  function addTyping() {
+    var row = document.createElement('div');
+    row.className = 'flex justify-start';
+    row.innerHTML = '<div class="rounded-2xl rounded-bl-md border border-white/12 bg-white/5 px-4 py-3 text-sm text-glasstext"><i class="fa-solid fa-ellipsis fa-fade"></i></div>';
+    chatMessages.appendChild(row);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return row;
+  }
+
+  function respond(question) {
+    var typing = addTyping();
+    setTimeout(function () {
+      typing.remove();
+      addMessage(findAnswer(question), 'bot');
+    }, 650);
+  }
+
+  function buildPills() {
+    chatPills.innerHTML = '';
+    quickQuestions.forEach(function (q) {
+      var pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-silverwhite hover:border-sky-300/60 hover:bg-sky-300/10 transition';
+      pill.textContent = q;
+      pill.addEventListener('click', function () {
+        addMessage(q, 'user');
+        respond(q);
+      });
+      chatPills.appendChild(pill);
+    });
+  }
+
+  function openChat() {
+    chatPanel.classList.remove('is-hidden');
+    if (!chatStarted) {
+      chatStarted = true;
+      addMessage('Sveiki. Esu PODES konsultantas. Padėsiu su aliuminio stumdomų sistemų kainomis, terminais ir darbo regionais.', 'bot');
+      buildPills();
+    }
+    setTimeout(function () { chatInput.focus(); }, 260);
+  }
+
+  chatToggle.addEventListener('click', function () {
+    if (chatPanel.classList.contains('is-hidden')) { openChat(); }
+    else { chatPanel.classList.add('is-hidden'); }
+  });
+
+  chatClose.addEventListener('click', function () { chatPanel.classList.add('is-hidden'); });
+
+  chatForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var value = chatInput.value.trim();
+    if (!value) { return; }
+    addMessage(value, 'user');
+    chatInput.value = '';
+    respond(value);
+  });
+
+  /* Reveal on scroll */
+  var revealTargets = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    revealTargets.forEach(function (el, i) {
+      el.style.transitionDelay = (i % 4) * 90 + 'ms';
+      observer.observe(el);
+    });
+  } else {
+    revealTargets.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* Graceful image fallback */
+  document.addEventListener('error', function (e) {
+    if (e.target && e.target.tagName === 'IMG') {
+      e.target.style.display = 'none';
+    }
+  }, true);
+
+  document.getElementById('yearNow').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
