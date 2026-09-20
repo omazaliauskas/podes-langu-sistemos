@@ -404,6 +404,28 @@ input[type="range"]::-moz-range-thumb {
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 .text-glow { text-shadow: 0 0 28px rgba(125, 211, 252, 0.35); }
 
+/* Counting figures under the hero, no frame around them */
+.stat {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.3,1);
+}
+.stat.is-visible { opacity: 1; transform: translateY(0); }
+.stat-value {
+  display: block;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  background: linear-gradient(160deg, #ffffff 0%, #e2f4ff 45%, #9ec8e8 100%);
+  Webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 26px rgba(125, 211, 252, 0.35));
+  transition: filter .5s ease;
+}
+.stat:hover .stat-value { filter: drop-shadow(0 0 34px rgba(167, 139, 250, 0.5)); }
+.stat-label { transition: color .4s ease; }
+.stat:hover .stat-label { color: #cbd5e1; }
+
 @media (prefers-reduced-motion: reduce) {
   .kb-slide.is-active, .track-left, .track-right, .track-reviews, .refraction-field, .pulse-dot::after { animation: none; }
   .reveal { opacity: 1; transform: none; }
@@ -458,22 +480,27 @@ input[type="range"]::-moz-range-thumb {
         </a>
       </div>
 
-      <div class="reveal mt-12 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-3xl mx-auto">
-        <div class="glass soft edge-faint shine rounded-2xl px-2 py-4 sm:py-5">
-          <p class="text-xl sm:text-3xl font-extrabold text-silverwhite">4.8</p>
-          <p class="mt-1 text-[10px] sm:text-xs text-glasstext tracking-wide">Įvertinimas</p>
+    </div>
+  </section>
+
+  <section id="skaiciai" class="relative py-14 sm:py-20">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <div class="grid grid-cols-2 gap-y-10 gap-x-4 sm:grid-cols-4 sm:gap-6 text-center">
+        <div class="stat" data-count-to="4.8" data-decimals="1">
+          <p class="stat-value text-4xl sm:text-5xl lg:text-6xl font-extrabold text-silverwhite text-glow">0.0</p>
+          <p class="stat-label mt-2 text-[11px] sm:text-xs tracking-[0.25em] uppercase text-glasstext">Įvertinimas</p>
         </div>
-        <div class="glass soft edge-faint shine rounded-2xl px-2 py-4 sm:py-5">
-          <p class="text-xl sm:text-3xl font-extrabold text-silverwhite">9</p>
-          <p class="mt-1 text-[10px] sm:text-xs text-glasstext tracking-wide">Atsiliepimai</p>
+        <div class="stat" data-count-to="9">
+          <p class="stat-value text-4xl sm:text-5xl lg:text-6xl font-extrabold text-silverwhite text-glow">0</p>
+          <p class="stat-label mt-2 text-[11px] sm:text-xs tracking-[0.25em] uppercase text-glasstext">Atsiliepimai</p>
         </div>
-        <div class="glass soft edge-faint shine rounded-2xl px-2 py-4 sm:py-5">
-          <p class="text-xl sm:text-3xl font-extrabold text-silverwhite">5 m.</p>
-          <p class="mt-1 text-[10px] sm:text-xs text-glasstext tracking-wide">Patirtis</p>
+        <div class="stat" data-count-to="5" data-suffix=" m.">
+          <p class="stat-value text-4xl sm:text-5xl lg:text-6xl font-extrabold text-silverwhite text-glow">0 m.</p>
+          <p class="stat-label mt-2 text-[11px] sm:text-xs tracking-[0.25em] uppercase text-glasstext">Patirtis</p>
         </div>
-        <div class="glass soft edge-faint shine rounded-2xl px-2 py-4 sm:py-5">
-          <p class="text-xl sm:text-3xl font-extrabold text-silverwhite">39</p>
-          <p class="mt-1 text-[10px] sm:text-xs text-glasstext tracking-wide">Darbų Nuotraukos</p>
+        <div class="stat" data-count-to="39">
+          <p class="stat-value text-4xl sm:text-5xl lg:text-6xl font-extrabold text-silverwhite text-glow">0</p>
+          <p class="stat-label mt-2 text-[11px] sm:text-xs tracking-[0.25em] uppercase text-glasstext">Darbų Nuotraukos</p>
         </div>
       </div>
     </div>
@@ -763,11 +790,8 @@ input[type="range"]::-moz-range-thumb {
     </div>
   </section>
 
-  <section id="kontaktai" class="photo-section py-20 sm:py-28">
-    <div class="photo-bg" style="background-image: url('photos/lg/14161638.jpg');"></div>
-    <div class="photo-veil"></div>
-
-    <div class="photo-inner mx-auto max-w-6xl px-5 sm:px-8">
+  <section id="kontaktai" class="relative py-20 sm:py-28">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
       <div class="reveal glass edge shine relative overflow-hidden p-8 sm:p-14 text-center">
         <div class="pointer-events-none absolute inset-0 opacity-70" style="background: radial-gradient(40rem 20rem at 50% 0%, rgba(125,211,252,.18), transparent 70%);"></div>
 
@@ -1423,6 +1447,50 @@ input[type="range"]::-moz-range-thumb {
     chatInput.value = '';
     respond(value);
   });
+
+  /* Figures under the hero count up the first time they are seen */
+  function animateStat(block) {
+    var target = parseFloat(block.getAttribute('data-count-to'));
+    var decimals = parseInt(block.getAttribute('data-decimals') || '0', 10);
+    var suffix = block.getAttribute('data-suffix') || '';
+    var output = block.querySelector('.stat-value');
+    var duration = 1600;
+    var started = null;
+
+    function frame(now) {
+      if (started === null) { started = now; }
+      var progress = Math.min((now - started) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      output.textContent = (target * eased).toFixed(decimals) + suffix;
+      if (progress < 1) { requestAnimationFrame(frame); }
+      else { output.textContent = target.toFixed(decimals) + suffix; }
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  var statBlocks = document.querySelectorAll('.stat');
+  if ('IntersectionObserver' in window) {
+    var statObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) { return; }
+        var block = entry.target;
+        statObserver.unobserve(block);
+        block.classList.add('is-visible');
+        setTimeout(function () { animateStat(block); }, 220);
+      });
+    }, { threshold: 0.4 });
+
+    statBlocks.forEach(function (block, i) {
+      block.style.transitionDelay = (i * 110) + 'ms';
+      statObserver.observe(block);
+    });
+  } else {
+    statBlocks.forEach(function (block) {
+      block.classList.add('is-visible');
+      animateStat(block);
+    });
+  }
 
   /* Reveal panels as they enter the viewport */
   var revealTargets = document.querySelectorAll('.reveal');
